@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: NormalEnemy
   m_EditorClassIdentifier: 
   _defaultHp: 15
-  _defaultSpeed: 1
+  _defaultSpeed: 4
   _score: 10
