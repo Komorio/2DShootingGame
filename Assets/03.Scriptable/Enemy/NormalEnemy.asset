@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e9386d682984848b319b20aaf18417, type: 3}
   m_Name: NormalEnemy
   m_EditorClassIdentifier: 
-  score: 0
-  defaultHp: 0
-  defaultSpeed: 0
+  _defaultHp: 15
+  _defaultSpeed: 1
+  _score: 10
