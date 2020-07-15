@@ -10,12 +10,15 @@ public class PlayerCharacterController : MonoBehaviour
     private float defaultSpeed;
     private float speed;
 
+    private bool isSlow;
+
     private PlayerWeapon weapon;
     private SpriteRenderer spriteRenderer;
 
     private void Awake(){
         speed = defaultSpeed;
 
+        weapon = gameObject.GetComponent<PlayerWeapon>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
@@ -49,8 +52,10 @@ public class PlayerCharacterController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.LeftShift)){
             speed /= 3.0f;
+            isSlow = true;
         } else if(Input.GetKeyUp(KeyCode.LeftShift)){
             speed = defaultSpeed;
+            isSlow = false;
         }
 
     }
@@ -75,7 +80,12 @@ public class PlayerCharacterController : MonoBehaviour
     
     private void Attack(){
         if(Input.GetKey(KeyCode.Z)){
+            if(isSlow){
+                weapon.Attack();
+                return;
+            }
 
+            weapon.StrongAttack();
         }
     }
 
