@@ -10,46 +10,86 @@ public class PlayerCharacterController : MonoBehaviour
     private float defaultSpeed;
     private float speed;
 
+    private PlayerWeapon weapon;
     private SpriteRenderer spriteRenderer;
-    private Vector2 moveVector;
 
     private void Awake(){
         speed = defaultSpeed;
+
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void Update(){
         Move();
         Attack();   
+        Ability();
     }
 
     private void Move(){
-        float verticalValue = Input.GetAxis("Vertical");
-        float horizontalValue = Input.GetAxis("Horizontal");
         
-        moveVector.x = horizontalValue;
-        moveVector.y = verticalValue;
+        switch(Input.anyKey){
+            case var k when Input.GetKey(KeyCode.LeftArrow):
+            CharacterMove(Vector3.left);
+            break;
+
+            case var k when Input.GetKey(KeyCode.RightArrow):
+            CharacterMove(Vector3.right);
+            break;
+        }
+        
+        switch(Input.anyKey){
+            case var k when Input.GetKey(KeyCode.UpArrow):
+            CharacterMove(Vector3.up);
+            break;
+
+            case var k when Input.GetKey(KeyCode.DownArrow):
+            CharacterMove(Vector3.down);
+            break;
+        }
 
         if(Input.GetKeyDown(KeyCode.LeftShift)){
             speed /= 3.0f;
-        } 
-
-        if(Input.GetKeyUp(KeyCode.LeftShift)){
+        } else if(Input.GetKeyUp(KeyCode.LeftShift)){
             speed = defaultSpeed;
         }
 
-        gameObject.transform.Translate(moveVector * speed * Time.unscaledDeltaTime);
     }
 
-    private void Attack(){
+    private void CharacterMove(Vector3 moveVector){
+        Vector3 characterPoint = GetCharacterViewPoint();
         
+        if(moveVector.x != 0){
+            float plusX = moveVector.x * speed * Time.unscaledDeltaTime;
+
+            if(characterPoint.x + plusX > 0 && characterPoint.x + plusX < 0.65f){
+                gameObject.transform.position += moveVector * speed * Time.unscaledDeltaTime;
+            }
+        } else if(moveVector.y != 0){
+            float plusY = moveVector.y * speed * Time.unscaledDeltaTime;
+
+            if(characterPoint.y + plusY > 0 && characterPoint.y + plusY < 0.95f){
+                gameObject.transform.position += moveVector * speed * Time.unscaledDeltaTime;
+            }
+        }
+    }
+    
+    private void Attack(){
+        if(Input.GetKey(KeyCode.Z)){
+
+        }
     }
 
     private void Ability(){
+        if(Input.GetKeyDown(KeyCode.X)){
 
-    }
+        }
+    } 
 
     private void Death(){
 
+    }
+
+    private Vector2 GetCharacterViewPoint(){
+        return Camera.main.WorldToViewportPoint(gameObject.transform.position);
     }
 }
