@@ -7,6 +7,7 @@ public class NormalEnemy : Enemy
     private Vector2 moveVector;
 
     protected override void Awake(){
+        base.Awake();
         moveVector = Vector2.down;
     }
 
