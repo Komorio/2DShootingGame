@@ -23,4 +23,11 @@ public class PlayerWeaponBullet : MonoBehaviour
     public virtual void Exit(){
         gameObject.SetActive(false);
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("Enemy")){
+            other.GetComponent<Enemy>().GetDamage();
+            Exit();
+        }    
+    }
 }

@@ -44,6 +44,15 @@ public class Enemy : MonoBehaviour
     protected virtual void Attack() { }
 
     protected virtual void Move() { }
+    
+    public virtual void GetDamage(){
+        _hp--;
+
+        if(_hp <= 0){
+            Death();
+            ObjectReset();
+        }
+    }
 
     protected virtual void Death() { 
         StageManager.instance.GameScore += score;
@@ -57,4 +66,5 @@ public class Enemy : MonoBehaviour
 
         _isActive = false;
     }
+
 }
