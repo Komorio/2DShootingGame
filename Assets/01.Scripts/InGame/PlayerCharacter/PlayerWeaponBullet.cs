@@ -14,7 +14,15 @@ public class PlayerWeaponBullet : MonoBehaviour
     }
 
     private IEnumerator ExecuteCoroutine(){
+        Vector2 viewPoint;
+        
         while(true){
+            viewPoint = GetBulletViewPosition();
+
+            if(viewPoint.y > 1 || viewPoint.y < 0){
+                Exit();
+            }
+
             gameObject.transform.Translate(Vector2.up * speed * Time.deltaTime);
             yield return YieldInstructionCache.WaitUntil;
         }
@@ -22,6 +30,10 @@ public class PlayerWeaponBullet : MonoBehaviour
 
     public virtual void Exit(){
         gameObject.SetActive(false);
+    }
+
+    private Vector2 GetBulletViewPosition(){
+        return Camera.main.WorldToViewportPoint(gameObject.transform.position);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
