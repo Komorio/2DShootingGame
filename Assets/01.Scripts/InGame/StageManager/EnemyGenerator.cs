@@ -28,24 +28,17 @@ public class EnemyGenerator : MonoBehaviour
 
     private IEnumerator EnemyGenerateCoroutine(){
         while(true){
-            ExplosionEnemyGenerate();
+            if(Random.Range(0, 2).Equals(1)){
+                EnemyGenerate(normalEnemys);
+            } else {
+                EnemyGenerate(explosionEnemys);
+            }
             yield return YieldInstructionCache.WaitingSeconds(1.5f);
         }
     }
 
-    public void NormalEnemyGenerate(){
-        Enemy generateEnemy = GetAvailableEnemy(normalEnemys);
-
-        if(generateEnemy == null){
-            return;
-        }    
-
-        generateEnemy.gameObject.transform.position = GetRandomViewPosition();
-        generateEnemy.ObjectActive();
-    }
-    
-    public void ExplosionEnemyGenerate(){
-        Enemy generateEnemy = GetAvailableEnemy(explosionEnemys);
+    public void EnemyGenerate(List<Enemy> enemyList){
+        Enemy generateEnemy = GetAvailableEnemy(enemyList);
 
         if(generateEnemy == null){
             return;
