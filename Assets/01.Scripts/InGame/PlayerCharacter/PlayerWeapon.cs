@@ -52,6 +52,10 @@ public class PlayerWeapon : MonoBehaviour
         canAttack = false;
     }
 
+    public virtual void Ability(){
+        
+    }
+
     // 2020-07-16 : Avaliable 메서드 스태릭으로 바꾸는거 생각해보기
     protected Bullet GetAvaliableBullet(List<Bullet> bullet){        
         for(int i = 0; i < bullet.Count; i++){

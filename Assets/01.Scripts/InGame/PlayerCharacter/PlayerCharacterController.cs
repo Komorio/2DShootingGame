@@ -90,7 +90,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void Ability(){
         if(Input.GetKeyDown(KeyCode.X)){
-
+            weapon.Ability();
         }
     } 
 

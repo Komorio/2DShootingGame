@@ -21,7 +21,7 @@ public class Alisha_Weapon : PlayerWeapon
         }
     }
 
-    public override void StrongAttack(){
+    public override void Ability(){
         if(!isPause){
             isPause = true;
             Time.timeScale = 0.0f;
