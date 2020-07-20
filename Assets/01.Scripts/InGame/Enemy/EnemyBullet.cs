@@ -7,12 +7,15 @@ public class EnemyBullet : MonoBehaviour
     [Header("Values")]
     [SerializeField]
     private float speed;
-    private Vector2 direction;
+    private Vector2 direction;  
+    private IEnumerator executeCoroutine;
 
     public void Execute(Vector2 direction){
         this.direction = direction;
         gameObject.SetActive(true);
-        ExecuteCoroutine().Start(this);
+
+        executeCoroutine?.Stop(this);
+        executeCoroutine = ExecuteCoroutine().Start(this);
     } 
 
     private IEnumerator ExecuteCoroutine(){
