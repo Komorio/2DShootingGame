@@ -15,12 +15,12 @@ public class PlayerWeapon : MonoBehaviour
     private float attackCoolDown;
     private bool canAttack;
     
-    private void Awake() {
+    protected virtual void Awake() {
         bullets = bulletObjects.GetComponentsInChildren<Bullet>(true).ToList();
         attackCoolDown = defaultAttackCoolDown;    
     }
 
-    private void Update(){
+    protected virtual void Update(){
         if(!canAttack){
             if(attackCoolDown > 0){
                 attackCoolDown -= Time.unscaledDeltaTime;
@@ -52,6 +52,7 @@ public class PlayerWeapon : MonoBehaviour
         canAttack = false;
     }
 
+    // 2020-07-16 : Avaliable 메서드 스태릭으로 바꾸는거 생각해보기
     protected Bullet GetAvaliableBullet(List<Bullet> bullet){        
         for(int i = 0; i < bullet.Count; i++){
             if(!bullet[i].gameObject.activeInHierarchy){

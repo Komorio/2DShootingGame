@@ -12,14 +12,13 @@ public class PlayerCharacterController : MonoBehaviour
 
     private bool isSlow;
 
-    [Header("Object")]
-    [SerializeField]
     private PlayerWeapon weapon;
     private SpriteRenderer spriteRenderer;
 
     private void Awake(){
         speed = defaultSpeed;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        weapon = gameObject.GetComponent<PlayerWeapon>();
     }
 
     private void Update(){
