@@ -9,12 +9,17 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField]
     private GameObject normalEnemyObject;
 
+    [SerializeField]
+    private GameObject explosionEnemyObject;
+
     private List<Enemy> normalEnemys = new List<Enemy>();
-    
+    private List<Enemy> explosionEnemys = new List<Enemy>();
+
     private IEnumerator enemyGenerateCoroutine;
 
     private void Awake(){
-        normalEnemys = normalEnemyObject.GetComponentsInChildren<Enemy>(true).ToList();        
+        normalEnemys = normalEnemyObject.GetComponentsInChildren<Enemy>(true).ToList(); 
+        explosionEnemys = explosionEnemyObject.GetComponentsInChildren<Enemy>(true).ToList();       
     }  
 
     private void Start(){
@@ -23,7 +28,7 @@ public class EnemyGenerator : MonoBehaviour
 
     private IEnumerator EnemyGenerateCoroutine(){
         while(true){
-            NormalEnemyGenerate();
+            ExplosionEnemyGenerate();
             yield return YieldInstructionCache.WaitingSeconds(1.5f);
         }
     }
@@ -39,6 +44,18 @@ public class EnemyGenerator : MonoBehaviour
         generateEnemy.ObjectActive();
     }
     
+    public void ExplosionEnemyGenerate(){
+        Enemy generateEnemy = GetAvailableEnemy(explosionEnemys);
+
+        if(generateEnemy == null){
+            return;
+        }    
+
+        generateEnemy.gameObject.transform.position = GetRandomViewPosition();
+        generateEnemy.ObjectActive();
+        
+    }
+
     public Enemy GetAvailableEnemy(List<Enemy> list){
         for(int i = 0; i < list.Count; i++){
             if(!list[i].gameObject.activeInHierarchy){

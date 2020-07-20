@@ -50,12 +50,12 @@ public class Enemy : MonoBehaviour
 
         if(_hp <= 0){
             Death();
-            ObjectReset();
         }
     }
 
     protected virtual void Death() { 
         StageManager.instance.GameScore += score;
+        ObjectReset();
     }
 
     protected virtual void ObjectReset() { 
